@@ -59,7 +59,7 @@ class Day5A extends FlatSpec with Matchers {
 }
 
 class Day5B extends FlatSpec with Matchers {
-  def solverRec(input: Int*): Int = {
+  def solverRec(input: Vector[Int]): Int = {
     def nextJumpOffset(jumpOffset: Int) = {
       if (jumpOffset >= 3)
         jumpOffset - 1
@@ -68,7 +68,7 @@ class Day5B extends FlatSpec with Matchers {
     }
 
     @tailrec
-    def next(pc: Int, n: Int, data: IndexedSeq[Int]): Int = {
+    def next(pc: Int, n: Int, data: Vector[Int]): Int = {
       if (pc < 0 || pc >= data.length) {
         n
       }
@@ -78,7 +78,7 @@ class Day5B extends FlatSpec with Matchers {
       }
     }
 
-    next(0, 0, input.toIndexedSeq)
+    next(0, 0, input)
   }
 
   def solver(input: Int*): Int = {
@@ -107,8 +107,17 @@ class Day5B extends FlatSpec with Matchers {
   }
 
   it should "pass test vectors" in {
-
     solver(0, 3, 0, 1, -3) should be(10)
-    solverRec(0, 3, 0, 1, -3) should be(10)
+  }
+
+  "Recursive solver" should "print result" in {
+    val input = Source.fromResource("Day5.txt").getLines()
+      .map(_.toInt)
+      .toSeq
+    println(solverRec(Vector(input: _*)))
+  }
+
+  it should "pass test vectors" in {
+    solverRec(Vector(0, 3, 0, 1, -3)) should be(10)
   }
 }
