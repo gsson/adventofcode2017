@@ -196,13 +196,13 @@ class Day10B extends FlatSpec with Matchers {
   def solver(input: Seq[Int]): String = {
     val state = knotRounds(64, KnotState(256), (input ++ Array(17, 31, 73, 47, 23)).toList)
 
-    DatatypeConverter.printHexBinary(state.denseHash).toLowerCase
+    state.denseHash.map(b => f"$b%02x").mkString("")
   }
 
   def mutableSolver(input: Seq[Int]): String = {
     val state = Day10Mutable.knotRounds(64, Day10Mutable.MutableKnotState(256), (input ++ Array(17, 31, 73, 47, 23)).toArray)
 
-    DatatypeConverter.printHexBinary(state.denseHash).toLowerCase
+    state.denseHash.map(b => f"$b%02x").mkString("")
   }
 
   "Solver" should "print result" in {
